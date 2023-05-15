@@ -1,0 +1,8 @@
+{
+    "config": {
+        "vendor-dir": "lib/vendor"
+    },
+    "require": {
+        "dompdf/dompdf": "^2.0"
+    }
+}
