@@ -26,42 +26,48 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
+if (!defined('WPINC')) {
 	die;
 }
+use Cbx\Phpdompdf\Hooks;
 
-defined( 'CBXPHPDOMPDF_PLUGIN_NAME' ) or define( 'CBXPHPDOMPDF_PLUGIN_NAME', 'cbxphpdompdf' );
-defined( 'CBXPHPDOMPDF_PLUGIN_VERSION' ) or define( 'CBXPHPDOMPDF_PLUGIN_VERSION', '1.0.0' );
-defined( 'CBXPHPDOMPDF_BASE_NAME' ) or define( 'CBXPHPDOMPDF_BASE_NAME', plugin_basename( __FILE__ ) );
-defined( 'CBXPHPDOMPDF_ROOT_PATH' ) or define( 'CBXPHPDOMPDF_ROOT_PATH', plugin_dir_path( __FILE__ ) );
-defined( 'CBXPHPDOMPDF_ROOT_URL' ) or define( 'CBXPHPDOMPDF_ROOT_URL', plugin_dir_url( __FILE__ ) );
+defined('CBXPHPDOMPDF_PLUGIN_NAME') or define('CBXPHPDOMPDF_PLUGIN_NAME', 'cbxphpdompdf');
+defined('CBXPHPDOMPDF_PLUGIN_VERSION') or define('CBXPHPDOMPDF_PLUGIN_VERSION', '1.0.0');
+defined('CBXPHPDOMPDF_BASE_NAME') or define('CBXPHPDOMPDF_BASE_NAME', plugin_basename(__FILE__));
+defined('CBXPHPDOMPDF_ROOT_PATH') or define('CBXPHPDOMPDF_ROOT_PATH', plugin_dir_path(__FILE__));
+defined('CBXPHPDOMPDF_ROOT_URL') or define('CBXPHPDOMPDF_ROOT_URL', plugin_dir_url(__FILE__));
 
-	register_activation_hook( __FILE__, array( 'CBXPhpDomPDP', 'activation' ) );
+register_activation_hook(__FILE__, array('CBXPhpDomPDP', 'activation'));
+require_once CBXPHPDOMPDF_ROOT_PATH . "lib/vendor/autoload.php";
 
-	/**
-	 * Class CBXPhpDomPDP
-	 */
-class CBXPhpDomPDP {
-	function __construct() {
+/**
+ * Class CBXPhpDomPDP
+ */
+class CBXPhpDomPDP
+{
+	function __construct()
+	{
 		//load text domain
 		load_plugin_textdomain('cbxphpdompdf', false, dirname(plugin_basename(__FILE__)) . '/languages/');
 
-		add_filter( 'plugin_row_meta', array($this, 'plugin_row_meta'), 10, 2 );
+		add_filter('plugin_row_meta', array($this, 'plugin_row_meta'), 10, 2);
+		new Hooks();
 	}
 
 	/**
 	 * Activation hook
 	 */
-	public static function activation() {
+	public static function activation()
+	{
 		/*$requirements = array(
-			'PHP 7.1.0' => version_compare(PHP_VERSION, '7.1.0', '>='),
-			'PHP extension XML' => extension_loaded('xml'),
-			'PHP extension xmlwriter' => extension_loaded('xmlwriter'),
-			'PHP extension mbstring' => extension_loaded('mbstring'),
-			'PHP extension ZipArchive' => extension_loaded('zip'),
-			'PHP extension GD (optional)' => extension_loaded('gd'),
-			'PHP extension dom (optional)' => extension_loaded('dom'),
-		);*/
+				  'PHP 7.1.0' => version_compare(PHP_VERSION, '7.1.0', '>='),
+				  'PHP extension XML' => extension_loaded('xml'),
+				  'PHP extension xmlwriter' => extension_loaded('xmlwriter'),
+				  'PHP extension mbstring' => extension_loaded('mbstring'),
+				  'PHP extension ZipArchive' => extension_loaded('zip'),
+				  'PHP extension GD (optional)' => extension_loaded('gd'),
+				  'PHP extension dom (optional)' => extension_loaded('dom'),
+			  );*/
 
 		if (!CBXPhpDomPDP::php_version_check()) {
 
@@ -130,7 +136,8 @@ class CBXPhpDomPDP {
 	 *
 	 * @return bool
 	 */
-	public static function php_version_check(){
+	public static function php_version_check()
+	{
 		if (version_compare(PHP_VERSION, '7.1.0', '<')) {
 			return false;
 		}
@@ -143,7 +150,8 @@ class CBXPhpDomPDP {
 	 *
 	 * @return bool
 	 */
-	public static function php_zip_enabled_check(){
+	public static function php_zip_enabled_check()
+	{
 		if (extension_loaded('zip')) {
 			return true;
 		}
@@ -155,7 +163,8 @@ class CBXPhpDomPDP {
 	 *
 	 * @return bool
 	 */
-	public static function php_xml_enabled_check(){
+	public static function php_xml_enabled_check()
+	{
 		if (extension_loaded('xml')) {
 			return true;
 		}
@@ -167,7 +176,8 @@ class CBXPhpDomPDP {
 	 *
 	 * @return bool
 	 */
-	public static function php_gd_enabled_check(){
+	public static function php_gd_enabled_check()
+	{
 		if (extension_loaded('gd')) {
 			return true;
 		}
@@ -179,7 +189,8 @@ class CBXPhpDomPDP {
 	 *
 	 * @return bool
 	 */
-	public static function php_mbstring_enabled_check(){
+	public static function php_mbstring_enabled_check()
+	{
 		if (extension_loaded('mbstring')) {
 			return true;
 		}
@@ -191,7 +202,8 @@ class CBXPhpDomPDP {
 	 *
 	 * @return bool
 	 */
-	public static function php_dom_enabled_check(){
+	public static function php_dom_enabled_check()
+	{
 		if (extension_loaded('dom')) {
 			return true;
 		}
@@ -206,15 +218,16 @@ class CBXPhpDomPDP {
 	 *
 	 * @return array
 	 */
-	public function plugin_row_meta( $links, $file ) {
+	public function plugin_row_meta($links, $file)
+	{
 
-		if ( strpos( $file, 'cbxphpdompdf.php' ) !== false ) {
+		if (strpos($file, 'cbxphpdompdf.php') !== false) {
 			$new_links = array(
-				'support' => '<a href="https://codeboxr.com/php-dompdf-library-wordpress-plugin/" target="_blank">'.esc_html__('Support', 'cbxphpdompdf').'</a>',
-				'doc'     => '<a href="https://github.com/dompdf/dompdf" target="_blank">'.esc_html__('PHP Dompdf Doc', 'cbxphpdompdf').'</a>'
+				'support' => '<a href="https://codeboxr.com/php-dompdf-library-wordpress-plugin/" target="_blank">' . esc_html__('Support', 'cbxphpdompdf') . '</a>',
+				'doc' => '<a href="https://github.com/dompdf/dompdf" target="_blank">' . esc_html__('PHP Dompdf Doc', 'cbxphpdompdf') . '</a>'
 			);
 
-			$links = array_merge( $links, $new_links );
+			$links = array_merge($links, $new_links);
 		}
 
 		return $links;
@@ -223,8 +236,9 @@ class CBXPhpDomPDP {
 }//end method CBXPhpDomPDP
 
 
-function cbxphpdompdf_load_plugin() {
+function cbxphpdompdf_load_plugin()
+{
 	new CBXPhpDomPDP();
 }
 
-add_action( 'plugins_loaded', 'cbxphpdompdf_load_plugin', 5 );
+add_action('plugins_loaded', 'cbxphpdompdf_load_plugin', 5);

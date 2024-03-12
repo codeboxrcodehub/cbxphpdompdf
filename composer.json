@@ -1,8 +1,14 @@
 {
-    "config": {
-        "vendor-dir": "lib/vendor"
+  "config": {
+    "vendor-dir": "lib/vendor"
+  },
+  "require": {
+    "dompdf/dompdf": "^2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Cbx\\Phpdompdf\\": "includes/"
     },
-    "require": {
-        "dompdf/dompdf": "^2.0"
-    }
+    "files": []
+  }
 }
