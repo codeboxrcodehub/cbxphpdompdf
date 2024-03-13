@@ -23,14 +23,14 @@ The following software is required:
 
 1. Download the latest zip from here (https://github.com/codeboxrcodehub/cbxphpdompdf/releases)
 2. [WordPress has clear documentation about how to install a plugin].(https://codex.wordpress.org/Managing_Plugins)
-3. After install activate the plugin "CBX PhpSpreadSheet Library" through the 'Plugins' menu in WordPress
+3. After install activate the plugin "CBX PhpDompdf Library" through the 'Plugins' menu in WordPress
 4. This plugin doesn't load any library by default, it doesn't create extra folder or menu.
 
 
 == Changelog ==
 
 = 1.0.1 =
-* Updated the phpspreadsheet package to latest
+* Updated the CBXPhpDompdf package to latest
 
 = 1.0.0 =
 * First public release
