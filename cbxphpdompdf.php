@@ -14,11 +14,11 @@
  *
  * @wordpress-plugin
  * Plugin Name:       CBX PHPDomPDF Library
- * Plugin URI:        https://codeboxr.com/php-dompdf-library-wordpress-plugin/
- * Description:       A pure PHP library for reading and writing pdp files https://github.com/dompdf/dompdf
- * Version:           1.0.0
+ * Plugin URI:        https://github.com/codeboxrcodehub/cbxphpdompdf
+ * Description:       dompdf Php library as WordPress to load the library as plugin https://github.com/dompdf/dompdf
+ * Version:           1.0.6
  * Author:            Codeboxr
- * Author URI:        https://github.com/PHPOffice/PhpDomPDF
+ * Author URI:        http://codeboxr.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       cbxphpdompdf
@@ -32,18 +32,18 @@ if (!defined('WPINC')) {
 use Cbx\Phpdompdf\Hooks;
 
 defined('CBXPHPDOMPDF_PLUGIN_NAME') or define('CBXPHPDOMPDF_PLUGIN_NAME', 'cbxphpdompdf');
-defined('CBXPHPDOMPDF_PLUGIN_VERSION') or define('CBXPHPDOMPDF_PLUGIN_VERSION', '1.0.0');
+defined('CBXPHPDOMPDF_PLUGIN_VERSION') or define('CBXPHPDOMPDF_PLUGIN_VERSION', '1.0.6');
 defined('CBXPHPDOMPDF_BASE_NAME') or define('CBXPHPDOMPDF_BASE_NAME', plugin_basename(__FILE__));
 defined('CBXPHPDOMPDF_ROOT_PATH') or define('CBXPHPDOMPDF_ROOT_PATH', plugin_dir_path(__FILE__));
 defined('CBXPHPDOMPDF_ROOT_URL') or define('CBXPHPDOMPDF_ROOT_URL', plugin_dir_url(__FILE__));
 
-register_activation_hook(__FILE__, array('CBXPhpDomPDP', 'activation'));
+register_activation_hook(__FILE__, array('CBXPhpDomPDF', 'activation'));
 require_once CBXPHPDOMPDF_ROOT_PATH . "lib/vendor/autoload.php";
 
 /**
- * Class CBXPhpDomPDP
+ * Class CBXPhpDomPDF
  */
-class CBXPhpDomPDP
+class CBXPhpDomPDF
 {
 	function __construct()
 	{
@@ -69,7 +69,7 @@ class CBXPhpDomPDP
 				  'PHP extension dom (optional)' => extension_loaded('dom'),
 			  );*/
 
-		if (!CBXPhpDomPDP::php_version_check()) {
+		if (!CBXPhpDomPDF::php_version_check()) {
 
 			// Deactivate the plugin
 			deactivate_plugins(__FILE__);
@@ -79,7 +79,7 @@ class CBXPhpDomPDP
 			die($error_message);
 		}
 
-		if (!CBXPhpDomPDP::php_zip_enabled_check()) {
+		if (!CBXPhpDomPDF::php_zip_enabled_check()) {
 
 			// Deactivate the plugin
 			deactivate_plugins(__FILE__);
@@ -89,7 +89,7 @@ class CBXPhpDomPDP
 			die($error_message);
 		}
 
-		if (!CBXPhpDomPDP::php_xml_enabled_check()) {
+		if (!CBXPhpDomPDF::php_xml_enabled_check()) {
 
 			// Deactivate the plugin
 			deactivate_plugins(__FILE__);
@@ -99,7 +99,7 @@ class CBXPhpDomPDP
 			die($error_message);
 		}
 
-		if (!CBXPhpDomPDP::php_gd_enabled_check()) {
+		if (!CBXPhpDomPDF::php_gd_enabled_check()) {
 
 			// Deactivate the plugin
 			deactivate_plugins(__FILE__);
@@ -109,7 +109,7 @@ class CBXPhpDomPDP
 			die($error_message);
 		}
 
-		if (!CBXPhpDomPDP::php_mbstring_enabled_check()) {
+		if (!CBXPhpDomPDF::php_mbstring_enabled_check()) {
 
 			// Deactivate the plugin
 			deactivate_plugins(__FILE__);
@@ -119,7 +119,7 @@ class CBXPhpDomPDP
 			die($error_message);
 		}
 
-		if (!CBXPhpDomPDP::php_dom_enabled_check()) {
+		if (!CBXPhpDomPDF::php_dom_enabled_check()) {
 
 			// Deactivate the plugin
 			deactivate_plugins(__FILE__);
@@ -223,7 +223,7 @@ class CBXPhpDomPDP
 
 		if (strpos($file, 'cbxphpdompdf.php') !== false) {
 			$new_links = array(
-				'support' => '<a href="https://codeboxr.com/php-dompdf-library-wordpress-plugin/" target="_blank">' . esc_html__('Support', 'cbxphpdompdf') . '</a>',
+				'support' => '<a href="https://github.com/codeboxrcodehub/cbxphpdompdf" target="_blank">' . esc_html__('Support', 'cbxphpdompdf') . '</a>',
 				'doc' => '<a href="https://github.com/dompdf/dompdf" target="_blank">' . esc_html__('PHP Dompdf Doc', 'cbxphpdompdf') . '</a>'
 			);
 
@@ -233,12 +233,12 @@ class CBXPhpDomPDP
 		return $links;
 	}
 
-}//end method CBXPhpDomPDP
+}//end method CBXPhpDomPDF
 
 
 function cbxphpdompdf_load_plugin()
 {
-	new CBXPhpDomPDP();
+	new CBXPhpDomPDF();
 }
 
 add_action('plugins_loaded', 'cbxphpdompdf_load_plugin', 5);

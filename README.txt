@@ -1,8 +1,8 @@
-=== CBX Taxonomy Library ===
+=== CBX PHPDomPDF Library ===
 Contributors: codeboxr, manchumahara
 Requires at least: 3.5
-Tested up to: 6.4.3
-Stable tag: 1.0.5
+Tested up to: 6.6.2
+Stable tag: 1.0.6
 License: MIT
 License URI: https://github.com/codeboxrcodehub/cbxphpdompdf/blob/master/LICENSE.txt
 
@@ -28,6 +28,9 @@ The following software is required:
 
 
 == Changelog ==
+= 1.0.6 =
+* language file fixed
+* Updated the CBXPhpDompdf package to latest
 
 = 1.0.1 =
 * Updated the CBXPhpDompdf package to latest
